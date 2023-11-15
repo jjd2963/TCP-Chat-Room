@@ -1,25 +1,35 @@
 # TCP-Chat-Room
 
-This Java project introduces a simple socket-based chat application with a client-server architecture. The project utilizes the java.net package to establish a socket connection, allowing communication between a client and a server.
+This Java project implements a client-server chat application using socket communication. The project consists of both a Client and Server class, allowing multiple clients to connect to a central server for real-time messaging.
+
+Client
+The client class establishes a socket connection with the server and handles user input. It creates a separate thread (InputHandler) for continuous input, enabling users to send messages to the server. The client gracefully shuts down upon the "/quit" command, closing connections and releasing resources.
+
+Server
+The server class manages multiple client connections concurrently using a thread pool (ExecutorService). Each client connection is handled by a ConnectionHandler thread, which listens for incoming messages, processes commands (e.g., "/nick" for nickname change), and broadcasts messages to all connected clients. The server gracefully shuts down, closing connections and terminating threads, upon command or exception.
 
 Features
-Socket Communication: The client establishes a socket connection with a server running on the local machine (127.0.0.1) and port 9999.
-Bi-Directional Messaging: The client sends messages to the server, and the server echoes them back to the client, creating a basic chat interaction.
-Input Handling: The application employs a separate thread for handling user input, allowing for real-time communication. The user can input messages, and the application will send them to the server.
+Bi-Directional Messaging: Clients can send messages to the server, and the server broadcasts them to all connected clients.
+Nicknaming: Clients can choose a nickname upon connecting or change it using the "/nick" command.
+Graceful Shutdown: Both the client and server implement a clean shutdown mechanism.
+
 Usage
-Compile the Client class.
-Run the compiled class to start the client.
-The client connects to the server, and you can start typing messages in the console.
-Type "/quit" to gracefully exit the application.
-How It Works
-The client establishes a socket connection with the server.
-Input handling is managed by a separate thread (InputHandler), enabling continuous message input.
-User messages are sent to the server, and the server echoes them back to the client.
-The application provides a clean shutdown mechanism with the "/quit" command.
+Compile the Client and Server classes.
+Run the server: java Server
+Run multiple clients: java Client
+
+Commands
+/nick <new-nickname>: Change your nickname.
+/quit: Exit the chat and disconnect from the server.
+
 Dependencies
 Java SE Development Kit (JDK)
+
 Getting Started
 Clone the repository: git clone <repository-url>
-Compile the Client class: javac Client.java
-Run the client: java Client
+Compile the classes: javac Client.java Server.java
+Run the server: java Server
+Run multiple clients: java Client
 Feel free to explore, enhance, and customize this project for your own needs. If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+Happy chatting!
